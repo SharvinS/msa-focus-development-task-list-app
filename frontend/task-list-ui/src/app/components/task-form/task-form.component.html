@@ -1,0 +1,63 @@
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-full sm:max-w-lg mx-auto p-8 bg-white rounded-lg"
+>
+  <div class="mb-4">
+    <label for="title" class="block text-lg font-medium text-gray-700"
+      >Task Name:</label
+    >
+    <input
+      id="title"
+      formControlName="title"
+      type="text"
+      (keypress)="keyPressAlphanumeric($event)"
+      class="mt-1 block w-full mx-auto p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+    />
+    <div
+      *ngIf="submitted && taskForm.get('title')?.invalid"
+      class="text-sm text-red-600 mt-1"
+    >
+      Task Name is required. It must be up to 100 characters long and contain
+      only alphanumerics
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="dueDate" class="block text-lg font-medium text-gray-700"
+      >Task Due Date:</label
+    >
+    <input
+      type="date"
+      formControlName="dueDate"
+      name="dueDate"
+      required
+      class="mt-1 block w-full mx-auto p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+    />
+    <div
+      *ngIf="submitted && taskForm.get('dueDate')?.hasError('pastDate')"
+      class="text-sm text-red-600 mt-1"
+    >
+      Task Due Date cannot be in the past
+    </div>
+    <div
+      *ngIf="
+        submitted &&
+        taskForm.get('dueDate')?.invalid &&
+        !taskForm.get('dueDate')?.hasError('pastDate')
+      "
+      class="text-sm text-red-600 mt-1"
+    >
+      Task Due Date is required
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center">
+    <button
+      type="submit"
+      class="cursor-pointer px-6 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 disabled:opacity-30 border-none"
+    >
+      Submit
+    </button>
+  </div>
+</form>

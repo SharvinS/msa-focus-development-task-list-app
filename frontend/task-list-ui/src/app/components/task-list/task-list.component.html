@@ -1,0 +1,49 @@
+<div
+  class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg max-h-[80vh] overflow-y-auto box-border"
+>
+  <app-task-form
+    (taskCreated)="handleTaskCreated($event)"
+    class="mb-6"
+  ></app-task-form>
+
+  <div class="flex items-center space-x-4 pl-4 mb-4">
+    <mat-checkbox
+      [(ngModel)]="selectAll"
+      (change)="toggleAllTasks()"
+      class="text-indigo-600"
+    >
+    </mat-checkbox>
+    <span class="text-lg font-medium">Mark all as complete</span>
+  </div>
+
+  <ul class="space-y-4 pl-0">
+    <li
+      *ngFor="let task of tasks"
+      class="flex items-center space-x-4 p-4 bg-gray-100 rounded-lg shadow-md"
+    >
+      <mat-checkbox
+        [checked]="task.isCompleted"
+        (change)="toggleTaskCompletion(task)"
+        class="text-indigo-600"
+      >
+      </mat-checkbox>
+
+      <span
+        [style.text-decoration]="task.isCompleted ? 'line-through' : 'none'"
+        class="text-gray-800 font-medium text-lg flex-1"
+      >
+        {{ task.title }}
+        <span class="text-sm text-gray-500">
+          (Due: {{ task.dueDate | date : "dd/MM/yyyy" }})</span
+        >
+      </span>
+
+      <button
+        (click)="deleteTask(task)"
+        class="cursor-pointer px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 border-none"
+      >
+        Delete
+      </button>
+    </li>
+  </ul>
+</div>
