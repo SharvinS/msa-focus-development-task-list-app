@@ -1,0 +1,56 @@
+# === GLOBAL ===
+.DS_Store
+Thumbs.db
+*.log
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.launch
+*.filelistabsolute
+npm-debug.log
+yarn-error.log
+
+# === IDEs ===
+.idea/
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# === FRONTEND ===
+# Angular / Node
+/frontend/task-list-ui/node_modules
+/frontend/task-list-ui/dist
+/frontend/task-list-ui/tmp
+/frontend/task-list-ui/out-tsc
+/frontend/task-list-ui/bazel-out
+/frontend/task-list-ui/.angular/cache
+/frontend/task-list-ui/.sass-cache
+/frontend/task-list-ui/coverage
+/frontend/task-list-ui/testem.log
+/frontend/task-list-ui/libpeerconnection.log
+/frontend/task-list-ui/typings
+/frontend/task-list-ui/.history/
+
+# === BACKEND ===
+/backend/task-list-api/bin/
+/backend/task-list-api/obj/
+/backend/task-list-api/*.GeneratedMSBuildEditorConfig.editorconfig
+
+# EF Core (optional)
+/backend/task-list-api/**/Migrations/*.Designer.cs
+/backend/task-list-api/**/Migrations/*.csproj.*
+/backend/task-list-api/**/Migrations/*.dgspec.json
+
+# NuGet (optional)
+/backend/task-list-api/project.assets.json
+/backend/task-list-api/*.nuget.g.props
+/backend/task-list-api/*.nuget.g.targets
+/backend/task-list-api/*.nuget.dgspec.json
+/backend/task-list-api/*.nuget.cache
+
+# Config files (optional)
+/backend/task-list-api/**/appsettings.Development.json
+/backend/task-list-api/**/appsettings.json
