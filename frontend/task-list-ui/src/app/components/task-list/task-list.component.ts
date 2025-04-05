@@ -37,7 +37,10 @@ export class TaskListComponent implements OnInit {
   }
 
   loadTasks() {
-    this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks;
+      this.checkIfAllTasksCompleted();
+    });
   }
 
   handleTaskCreated(task: Task) {
@@ -48,7 +51,10 @@ export class TaskListComponent implements OnInit {
   toggleTaskCompletion(task: Task): void {
     task.isCompleted = !task.isCompleted;
     this.taskService.updateTask(task).subscribe({
-      next: () => this.showMessage('Task updated successfully'),
+      next: () => {
+        this.checkIfAllTasksCompleted();
+        this.showMessage('Task updated successfully');
+      },
       error: (err) => console.error('Update failed:', err),
     });
   }
@@ -59,10 +65,19 @@ export class TaskListComponent implements OnInit {
       this.taskService.updateTask(task).subscribe();
     });
     this.showMessage('All tasks updated');
+    this.checkIfAllTasksCompleted();
   }
 
   showMessage(msg: string): void {
     this.snackBar.open(msg, 'Close', { duration: 3000 });
+  }
+
+  checkIfAllTasksCompleted() {
+    if (this.tasks.length === 0) {
+      this.selectAll = false;
+    } else {
+      this.selectAll = this.tasks.every((task) => task.isCompleted);
+    }
   }
 
   deleteTask(task: Task): void {
@@ -76,6 +91,7 @@ export class TaskListComponent implements OnInit {
           next: () => {
             this.tasks = this.tasks.filter((t) => t.id !== task.id);
             this.showMessage('Task deleted successfully');
+            this.checkIfAllTasksCompleted();
           },
           error: (err) => console.error('Delete failed:', err),
         });
@@ -85,6 +101,7 @@ export class TaskListComponent implements OnInit {
         next: () => {
           this.tasks = this.tasks.filter((t) => t.id !== task.id);
           this.showMessage('Task deleted successfully');
+          this.checkIfAllTasksCompleted();
         },
         error: (err) => console.error('Delete failed:', err),
       });
