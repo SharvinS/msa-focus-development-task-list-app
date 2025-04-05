@@ -13,6 +13,10 @@ body {
   overflow: hidden;
 }
 
-::-webkit-input-placeholder, input[type="date"]::-webkit-datetime-edit {
-  color: gray;
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
 }
