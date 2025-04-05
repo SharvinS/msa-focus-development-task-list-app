@@ -1,0 +1,40 @@
+# Ignore build output folders
+/bin/
+//obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Rider IDE files
+.idea/
+
+# Ignore generated .editorconfig
+*.GeneratedMSBuildEditorConfig.editorconfig
+
+# Ignore EF Core generated files (optional)
+**/Migrations/*.Designer.cs
+**/Migrations/*.csproj.*
+**/Migrations/*.dgspec.json
+
+# Ignore NuGet-related generated files
+project.assets.json
+*.nuget.g.props
+*.nuget.g.targets
+*.nuget.dgspec.json
+*.nuget.cache
+
+# Ignore temporary config files
+**/appsettings.Development.json
+**/appsettings.json
+
+# Ignore logs or debug traces
+*.log
+
+# Ignore file list absolute (used for incremental builds)
+*.filelistabsolute
+
+# Ignore VS Code settings (optional)
+.vscode/
