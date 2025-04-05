@@ -12,3 +12,7 @@ body {
   background-color: antiquewhite;
   overflow: hidden;
 }
+
+::-webkit-input-placeholder, input[type="date"]::-webkit-datetime-edit {
+  color: gray;
+}
