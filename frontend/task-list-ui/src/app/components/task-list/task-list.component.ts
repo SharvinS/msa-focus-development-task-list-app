@@ -24,7 +24,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
-  selectAll = false;
+  selectAll = false; // Tracks if all tasks are selected
 
   constructor(
     private taskService: TaskService,
@@ -33,26 +33,26 @@ export class TaskListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadTasks();
+    this.loadTasks(); // Load all existing tasks on screen load
   }
 
   loadTasks() {
     this.taskService.getTasks().subscribe((tasks) => {
       this.tasks = tasks;
-      this.checkIfAllTasksCompleted();
+      this.checkIfAllTasksCompleted(); // Check if all tasks are done
     });
   }
 
   handleTaskCreated(task: Task) {
-    this.taskService.addTask(task).subscribe(() => this.loadTasks());
+    this.taskService.addTask(task).subscribe(() => this.loadTasks()); // Add the new task and refresh the list
     this.showMessage('Task added successfully');
   }
 
   toggleTaskCompletion(task: Task): void {
-    task.isCompleted = !task.isCompleted;
+    task.isCompleted = !task.isCompleted; // Flip the completion status
     this.taskService.updateTask(task).subscribe({
       next: () => {
-        this.checkIfAllTasksCompleted();
+        this.checkIfAllTasksCompleted(); // Check if all tasks are done
         this.showMessage('Task updated successfully');
       },
       error: (err) => console.error('Update failed:', err),
@@ -61,37 +61,37 @@ export class TaskListComponent implements OnInit {
 
   toggleAllTasks() {
     this.tasks.forEach((task) => {
-      task.isCompleted = this.selectAll;
+      task.isCompleted = this.selectAll; // Set all tasks to the same completion status
       this.taskService.updateTask(task).subscribe();
     });
     this.showMessage('All tasks updated');
-    this.checkIfAllTasksCompleted();
+    this.checkIfAllTasksCompleted(); // Check if all tasks are done
   }
 
   showMessage(msg: string): void {
-    this.snackBar.open(msg, 'Close', { duration: 3000 });
+    this.snackBar.open(msg, 'Close', { duration: 3000 }); // Show a message to the user
   }
 
   checkIfAllTasksCompleted() {
     if (this.tasks.length === 0) {
-      this.selectAll = false;
+      this.selectAll = false; // Nothing to select if there are no tasks
     } else {
-      this.selectAll = this.tasks.every((task) => task.isCompleted);
+      this.selectAll = this.tasks.every((task) => task.isCompleted); // Check are all tasks done
     }
   }
 
   deleteTask(task: Task): void {
     if (!task.isCompleted) {
-      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+      const dialogRef = this.dialog.open(ConfirmDialogComponent); // Confirm before deleting
 
       dialogRef.afterClosed().subscribe((result) => {
-        if (!result) return;
+        if (!result) return; // User canceled, do nothing
 
         this.taskService.deleteTask(task.id).subscribe({
           next: () => {
-            this.tasks = this.tasks.filter((t) => t.id !== task.id);
+            this.tasks = this.tasks.filter((t) => t.id !== task.id); // Remove the task from the list
             this.showMessage('Task deleted successfully');
-            this.checkIfAllTasksCompleted();
+            this.checkIfAllTasksCompleted(); // Check if all tasks are done
           },
           error: (err) => console.error('Delete failed:', err),
         });
@@ -99,9 +99,9 @@ export class TaskListComponent implements OnInit {
     } else {
       this.taskService.deleteTask(task.id).subscribe({
         next: () => {
-          this.tasks = this.tasks.filter((t) => t.id !== task.id);
+          this.tasks = this.tasks.filter((t) => t.id !== task.id); // Remove the task from the list
           this.showMessage('Task deleted successfully');
-          this.checkIfAllTasksCompleted();
+          this.checkIfAllTasksCompleted(); // Check if all tasks are done
         },
         error: (err) => console.error('Delete failed:', err),
       });

@@ -1,11 +1,13 @@
 <div
   class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg max-h-[82vh] overflow-y-auto box-border scrollbar-hidden"
 >
+  <!-- Form to add new tasks -->
   <app-task-form
     (taskCreated)="handleTaskCreated($event)"
     class="mb-6"
   ></app-task-form>
 
+  <!-- Checkbox to mark all tasks as complete -->
   <div class="flex items-center space-x-4 pl-4 mb-4">
     <mat-checkbox
       [(ngModel)]="selectAll"
@@ -16,11 +18,13 @@
     <span class="text-lg font-medium">Mark all as complete</span>
   </div>
 
+  <!-- The list of tasks -->
   <ul class="space-y-4 pl-0">
     <li
       *ngFor="let task of tasks"
       class="flex items-center space-x-4 p-4 bg-gray-100 rounded-lg shadow-md"
     >
+      <!-- Checkbox for each individual task -->
       <mat-checkbox
         [checked]="task.isCompleted"
         (change)="toggleTaskCompletion(task)"
@@ -28,6 +32,7 @@
       >
       </mat-checkbox>
 
+      <!-- Task title and due date -->
       <span
         [style.text-decoration]="task.isCompleted ? 'line-through' : 'none'"
         class="text-gray-800 font-medium text-lg flex-1"
@@ -38,6 +43,7 @@
         >
       </span>
 
+      <!-- Delete button for each task -->
       <button
         (click)="deleteTask(task)"
         class="cursor-pointer px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 border-none"

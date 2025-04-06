@@ -15,6 +15,7 @@
       (keypress)="keyPressAlphanumeric($event)"
       class="mt-1 block w-full mx-auto p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
     />
+    <!-- Show this if the task name is invalid -->
     <div
       *ngIf="submitted && taskForm.get('title')?.invalid"
       class="text-sm text-red-600 mt-1"
@@ -35,12 +36,14 @@
       required
       class="mt-1 block w-full mx-auto p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
     />
+    <!-- Show this if the due date is not in the future -->
     <div
       *ngIf="submitted && taskForm.get('dueDate')?.hasError('pastDate')"
       class="text-sm text-red-600 mt-1"
     >
-      Task Due Date cannot be in the past
+      Task Due Date must be in the future
     </div>
+    <!-- Show this if the due date is invalid and is in the future -->
     <div
       *ngIf="
         submitted &&
